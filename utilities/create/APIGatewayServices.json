@@ -26594,7 +26594,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"name\": \"OAuthStrategy_{{apiName}}_{{apiVersion}}\",\n\t\"description\": \"OAuthStrategy Description\",\n\t\"authServerAlias\": \"local\",\n\t\"audience\": \"oauth_audience\",\n\t\"type\": \"OAUTH2\",\n\t\"dcrConfig\": {\n\t\t\"allowedGrantTypes\": [\n\t\t\t\"authorization_code\",\n\t\t\t\"password\",\n\t\t\t\"client_credentials\",\n\t\t\t\"refresh_token\",\n\t\t\t\"implicit\"\n\t\t],\n        \"scopes\": [\n            \"oauth_scope\"\n        ],\n\t\t\"redirectUris\": [\n\t\t\t\"https://redirectURI.com\"\n\t\t],\n\t\t\"authServer\": \"local\",\n\t\t\"applicationType\": \"web\",\n\t\t\"clientType\": \"CONFIDENTIAL\",\n\t\t\"expirationInterval\": 3600,\n\t\t\"refreshCount\": \"100\"\n\t}\n}",
+									"raw": "{\n\t\"name\": \"OAuthStrategy_{{apiName}}_OAuth2_{{apiVersion}}\",\n\t\"description\": \"OAuthStrategy Description\",\n\t\"authServerAlias\": \"local\",\n\t\"audience\": \"oauth_audience\",\n\t\"type\": \"OAUTH2\",\n\t\"dcrConfig\": {\n\t\t\"allowedGrantTypes\": [\n\t\t\t\"authorization_code\",\n\t\t\t\"password\",\n\t\t\t\"client_credentials\",\n\t\t\t\"refresh_token\",\n\t\t\t\"implicit\"\n\t\t],\n        \"scopes\": [\n            \"oauth_scope\"\n        ],\n\t\t\"redirectUris\": [\n\t\t\t\"https://redirectURI.com\"\n\t\t],\n\t\t\"authServer\": \"local\",\n\t\t\"applicationType\": \"web\",\n\t\t\"clientType\": \"CONFIDENTIAL\",\n\t\t\"expirationInterval\": 3600,\n\t\t\"refreshCount\": \"100\"\n\t}\n}",
 									"options": {
 										"raw": {
 											"language": "json"
