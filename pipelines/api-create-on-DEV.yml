@@ -11,10 +11,10 @@ parameters:
   default: Usecases
   values:
   - Usecases
-  - Associate policyactions and application with API
-  - API with Custom Extension Policy
-  - API with Scope Policy
-  - OAuth2 API with scope mapping and application
+  - "Associate policyactions and application with API"
+  - "API with Custom Extension Policy"
+  - "API with Scope Policy"
+  - "OAuth2 API with scope mapping and application"
 - name: apiName
   type: string
   default: 'Petstore'
