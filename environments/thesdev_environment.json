@@ -23,7 +23,7 @@
 		{
 			"enabled": true,
 			"key": "insecureflag",
-			"value": "--insecure",
+			"value": "",
 			"type": "text"
 		  }
 		],
