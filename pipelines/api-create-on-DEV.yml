@@ -22,6 +22,7 @@ steps:
 - template: /pipelines/api-create-template.yml  # Template reference
   parameters:
     apiProject: 'dummy'
-    apiName: 'Petstore'
+    apiName: 'Petstore_New'
+    apiVersion: '2.0'
     environment: thesdev_environment.json
     type: DEV
