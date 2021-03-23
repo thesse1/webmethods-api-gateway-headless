@@ -23,5 +23,5 @@ steps:
   parameters:
     apiProject: 'dummy'
     apiName: 'Petstore'
-    environment: dev_environment_demo.json
+    environment: thesdev_environment.json
     type: DEV

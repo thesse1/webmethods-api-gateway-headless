@@ -4,20 +4,20 @@
 	"values": [
 		{
 			"key": "hostname",
-			"value": "daehgcs51570.hycloud.softwareag.com",
+			"value": "thesdev.gateway.webmethodscloud.de",
 			"type": "text",
 			"enabled": true
 		},
 		{
 			"key": "ip",
-			"value": "daehgcs51570.hycloud.softwareag.com",
+			"value": "thesdev.gateway.webmethodscloud.de",
 			"type": "text",
 			"enabled": true
 		},
 		{
 			"enabled": true,
 			"key": "port",
-			"value": "11000",
+			"value": "443",
 			"type": "text"
 		},
 		{
