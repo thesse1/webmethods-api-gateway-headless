@@ -47,7 +47,7 @@ steps:
 
 - script: |
     newman run utilities/create/APIGatewayServices.json \
-    --folder "Associate policyactions and application with API" \
+    --folder ${{parameters.apiProject}} \
     --reporters cli \
     --env-var user=$(creator_user) \
     --env-var password=$(creator_password) \

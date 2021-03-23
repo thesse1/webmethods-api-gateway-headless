@@ -6,6 +6,15 @@ pool:
   vmImage: ubuntu-latest
 
 parameters:
+- name: apiProject
+  type: string
+  default: Usecases
+  values:
+  - Usecases
+  - Associate policyactions and application with API
+  - API with Custom Extension Policy
+  - API with Scope Policy
+  - OAuth2 API with scope mapping and application
 - name: apiName
   type: string
   default: 'Petstore'
@@ -23,7 +32,7 @@ steps:
 
 - template: /pipelines/api-create-template.yml  # Template reference
   parameters:
-    apiProject: 'dummy'
+    apiProject: '${{parameters.apiProject}}'
     apiName: '${{parameters.apiName}}'
     apiVersion: '${{parameters.apiVersion}}'
     environment: thesdev_environment.json
