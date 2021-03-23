@@ -26786,15 +26786,25 @@
 	"variable": [
 		{
 			"key": "baseURL",
-			"value": "https://apigw-th-1434d4b1.nip.io/rest/apigateway"
+			"value": "https://{{ip}}:{{port}}/rest/apigateway"
 		},
 		{
 			"key": "user",
-			"value": "Administrator"
+			"value": "Administrator",
+			"disabled": true
 		},
 		{
 			"key": "password",
-			"value": "manage"
+			"value": "manage",
+			"disabled": true
+		},
+		{
+			"key": "ip",
+			"value": "localhost"
+		},
+		{
+			"key": "port",
+			"value": "5556"
 		}
 	]
 }
