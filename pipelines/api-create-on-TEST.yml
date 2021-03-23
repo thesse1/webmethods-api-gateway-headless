@@ -24,4 +24,4 @@ steps:
     apiProject: 'dummy'
     apiName: 'Petstore'
     environment: thestest_environment.json
-    type: DEV
+    type: TEST
