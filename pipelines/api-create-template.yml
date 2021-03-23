@@ -1,0 +1,57 @@
+# Pipeline template for apig staging
+
+parameters:
+  apiProject: ''
+  apiName: ''
+  environment: ''
+  type: ''
+
+steps:
+- bash: |
+    if [ -z "$APIPROJECT" ]; then
+      echo "##vso[task.logissue type=error;]Missing template parameter \"apiProject\""
+      echo "##vso[task.complete result=Failed;]"
+    fi
+    if [ -z "$APINAME" ]; then
+      echo "##vso[task.logissue type=error;]Missing template parameter \"apiName\""
+      echo "##vso[task.complete result=Failed;]"
+    fi
+    if [ -z "$ENVIRONMENT" ]; then
+      echo "##vso[task.logissue type=error;]Missing template parameter \"environment\""
+      echo "##vso[task.complete result=Failed;]"
+    fi
+    if [ -z "$TYPE" ]; then
+      echo "##vso[task.logissue type=error;]Missing template parameter \"type\""
+      echo "##vso[task.complete result=Failed;]"
+    fi
+  env:
+    APIPROJECT: ${{parameters.apiProject}}
+    APINAME: ${{parameters.apiName}}
+    ENVIRONMENT: ${{parameters.environment}}
+    TYPE: ${{parameters.type}}
+  displayName: Check for required parameters
+
+- bash: |
+   echo "##vso[task.setvariable variable=environment_hostname]`jq -r '.values[] | select(.key == "hostname") | .value' environments/${{parameters.environment}}`"
+   echo "##vso[task.setvariable variable=environment_ip]`jq -r '.values[] | select(.key == "ip") | .value' environments/${{parameters.environment}}`"
+   echo "##vso[task.setvariable variable=environment_port]`jq -r '.values[] | select(.key == "port") | .value' environments/${{parameters.environment}}`"
+   echo "##vso[task.setvariable variable=environment_insecureflag]`jq -r '.values[] | select(.key == "insecureflag") | .value' environments/${{parameters.environment}}`"
+  workingDirectory: '$(System.DefaultWorkingDirectory)'
+  displayName: 'Read and parse API Gateway ${{parameters.type}} configuration, extract ip, hostname, port and insecureflag'
+
+- script: |
+    newman run utilities/create/APIGatewayServices.json \
+    --folder Usecases \
+    --reporters cli \
+    --env-var user=$(creator_user) \
+    --env-var password=$(creator_password) \
+    --env-var buildId=$(Build.BuildId) \
+    --env-var buildNumber=$(Build.BuildNumber) \
+    --env-var definitionName=$(Build.DefinitionName) \
+    --env-var definitionVersion=$(Build.DefinitionVersion) \
+    -e environments/${{parameters.environment}} \
+    $(environment_insecureflag)
+  workingDirectory: '$(System.DefaultWorkingDirectory)'
+  displayName: 'Create APIs on API Gateway ${{parameters.type}}'
+  env:
+    no_proxy: $(environment_ip)
