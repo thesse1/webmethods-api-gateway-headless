@@ -19,11 +19,9 @@ steps:
   submodules: "true"
   persistCredentials: "true"
 
-- template: /pipelines/api-deploy-template.yml  # Template reference
+- template: /pipelines/api-create-template.yml  # Template reference
   parameters:
-    apiProject: $(apiProject)
-    build_environment: build_environment_demo.json
-    target_environment: prod_environment_demo.json
-    target_type: PROD
-    prep_condition: ${{true}}
-    test_condition: ${{true}}
+    apiProject: 'dummy'
+    apiName: 'Petstore'
+    environment: thestest_environment.json
+    type: DEV
