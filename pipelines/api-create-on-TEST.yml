@@ -5,11 +5,22 @@ trigger: none
 pool:
   vmImage: ubuntu-latest
 
-# To do: Add apiProject as pipeline parameters (vs. pipeline variable)
-# parameters:
-# - name: apiProject
-#   type: string
-#   default: 'petstore'
+parameters:
+- name: apiProject
+  type: string
+  default: Usecases
+  values:
+  - Usecases
+  - "Associate policyactions and application with API"
+  - "API with Custom Extension Policy"
+  - "API with Scope Policy"
+  - "OAuth2 API with scope mapping and application"
+- name: apiName
+  type: string
+  default: 'Petstore'
+- name: apiVersion
+  type: string
+  default: '1.0'
 
 variables:
 - group: wm_test_apigw_staging
@@ -21,7 +32,8 @@ steps:
 
 - template: /pipelines/api-create-template.yml  # Template reference
   parameters:
-    apiProject: 'dummy'
-    apiName: 'Petstore'
+    apiProject: '${{parameters.apiProject}}'
+    apiName: '${{parameters.apiName}}'
+    apiVersion: '${{parameters.apiVersion}}'
     environment: thestest_environment.json
     type: TEST
