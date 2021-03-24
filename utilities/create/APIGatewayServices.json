@@ -25423,7 +25423,28 @@
 										"exec": [
 											"let apiResponse=JSON.parse(responseBody);",
 											"pm.environment.set(\"apiID\", apiResponse.apiResponse.api.id);",
-											"pm.environment.set(\"policyID\", apiResponse.apiResponse.api.policies[0]);"
+											"pm.environment.set(\"policyID\", apiResponse.apiResponse.api.policies[0]);",
+											"",
+											"let api = apiResponse.apiResponse.api;",
+											"api.apiDefinition.tags = api.apiDefinition.tags || [];",
+											"api.apiDefinition.apiTags = api.apiDefinition.apiTags || [];",
+											"console.log(pm.variables.get(\"buildId\"));",
+											"if (pm.variables.get(\"buildId\") !== undefined && pm.variables.get(\"buildId\") !== \"\") {",
+											"    api.apiDefinition.tags.push({\"name\":\"BuildId:{{buildId}}\"});",
+											"    api.apiDefinition.apiTags.push(\"BuildId:{{buildId}}\");",
+											"}",
+											"if (pm.variables.get(\"buildNumber\") !== undefined && pm.variables.get(\"buildNumber\") !== \"\") {",
+											"    api.apiDefinition.tags.push({\"name\":\"BuildNumber:{{buildNumber}}\"});",
+											"    api.apiDefinition.apiTags.push(\"BuildNumber:{{buildNumber}}\");",
+											"}",
+											"if (pm.variables.get(\"definitionName\") !== undefined && pm.variables.get(\"definitionName\") !== \"\") {",
+											"    api.apiDefinition.tags.push({\"name\":\"PipelineName:{{definitionName}}\"});",
+											"    api.apiDefinition.apiTags.push(\"PipelineName:{{definitionName}}\");",
+											"}",
+											"//    api.apiDefinition.tags.push({\"name\":\"PipelineVersion:{{definitionVersion}}\"});",
+											"//    api.apiDefinition.apiTags.push(\"PipelineVersion:{{definitionVersion}}\");",
+											"let apiString = JSON.stringify(api);",
+											"pm.globals.set(\"api\", apiString);"
 										],
 										"type": "text/javascript"
 									}
@@ -25459,6 +25480,54 @@
 									],
 									"path": [
 										"apis"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update the API with tags",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Host",
+										"value": "{{hostname}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{api}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/apis/{{apiID}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"apis",
+										"{{apiID}}"
 									]
 								}
 							},
@@ -25817,7 +25886,28 @@
 										"exec": [
 											"let apiResponse=JSON.parse(responseBody);",
 											"pm.environment.set(\"apiID\", apiResponse.apiResponse.api.id);",
-											"pm.environment.set(\"policyID\", apiResponse.apiResponse.api.policies[0]);"
+											"pm.environment.set(\"policyID\", apiResponse.apiResponse.api.policies[0]);",
+											"",
+											"let api = apiResponse.apiResponse.api;",
+											"api.apiDefinition.tags = api.apiDefinition.tags || [];",
+											"api.apiDefinition.apiTags = api.apiDefinition.apiTags || [];",
+											"console.log(pm.variables.get(\"buildId\"));",
+											"if (pm.variables.get(\"buildId\") !== undefined && pm.variables.get(\"buildId\") !== \"\") {",
+											"    api.apiDefinition.tags.push({\"name\":\"BuildId:{{buildId}}\"});",
+											"    api.apiDefinition.apiTags.push(\"BuildId:{{buildId}}\");",
+											"}",
+											"if (pm.variables.get(\"buildNumber\") !== undefined && pm.variables.get(\"buildNumber\") !== \"\") {",
+											"    api.apiDefinition.tags.push({\"name\":\"BuildNumber:{{buildNumber}}\"});",
+											"    api.apiDefinition.apiTags.push(\"BuildNumber:{{buildNumber}}\");",
+											"}",
+											"if (pm.variables.get(\"definitionName\") !== undefined && pm.variables.get(\"definitionName\") !== \"\") {",
+											"    api.apiDefinition.tags.push({\"name\":\"PipelineName:{{definitionName}}\"});",
+											"    api.apiDefinition.apiTags.push(\"PipelineName:{{definitionName}}\");",
+											"}",
+											"//    api.apiDefinition.tags.push({\"name\":\"PipelineVersion:{{definitionVersion}}\"});",
+											"//    api.apiDefinition.apiTags.push(\"PipelineVersion:{{definitionVersion}}\");",
+											"let apiString = JSON.stringify(api);",
+											"pm.globals.set(\"api\", apiString);"
 										],
 										"type": "text/javascript"
 									}
@@ -25853,6 +25943,54 @@
 									],
 									"path": [
 										"apis"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update the API with tags",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Host",
+										"value": "{{hostname}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{api}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/apis/{{apiID}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"apis",
+										"{{apiID}}"
 									]
 								}
 							},
@@ -26291,7 +26429,28 @@
 										"exec": [
 											"let apiResponse=JSON.parse(responseBody);",
 											"pm.environment.set(\"apiID\", apiResponse.apiResponse.api.id);",
-											"pm.environment.set(\"policyID\", apiResponse.apiResponse.api.policies[0]);"
+											"pm.environment.set(\"policyID\", apiResponse.apiResponse.api.policies[0]);",
+											"",
+											"let api = apiResponse.apiResponse.api;",
+											"api.apiDefinition.tags = api.apiDefinition.tags || [];",
+											"api.apiDefinition.apiTags = api.apiDefinition.apiTags || [];",
+											"console.log(pm.variables.get(\"buildId\"));",
+											"if (pm.variables.get(\"buildId\") !== undefined && pm.variables.get(\"buildId\") !== \"\") {",
+											"    api.apiDefinition.tags.push({\"name\":\"BuildId:{{buildId}}\"});",
+											"    api.apiDefinition.apiTags.push(\"BuildId:{{buildId}}\");",
+											"}",
+											"if (pm.variables.get(\"buildNumber\") !== undefined && pm.variables.get(\"buildNumber\") !== \"\") {",
+											"    api.apiDefinition.tags.push({\"name\":\"BuildNumber:{{buildNumber}}\"});",
+											"    api.apiDefinition.apiTags.push(\"BuildNumber:{{buildNumber}}\");",
+											"}",
+											"if (pm.variables.get(\"definitionName\") !== undefined && pm.variables.get(\"definitionName\") !== \"\") {",
+											"    api.apiDefinition.tags.push({\"name\":\"PipelineName:{{definitionName}}\"});",
+											"    api.apiDefinition.apiTags.push(\"PipelineName:{{definitionName}}\");",
+											"}",
+											"//    api.apiDefinition.tags.push({\"name\":\"PipelineVersion:{{definitionVersion}}\"});",
+											"//    api.apiDefinition.apiTags.push(\"PipelineVersion:{{definitionVersion}}\");",
+											"let apiString = JSON.stringify(api);",
+											"pm.globals.set(\"api\", apiString);"
 										],
 										"type": "text/javascript"
 									}
@@ -26327,6 +26486,54 @@
 									],
 									"path": [
 										"apis"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update the API with tags",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Host",
+										"value": "{{hostname}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{{api}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/apis/{{apiID}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"apis",
+										"{{apiID}}"
 									]
 								}
 							},
@@ -26800,11 +27007,13 @@
 		},
 		{
 			"key": "ip",
-			"value": "localhost"
+			"value": "localhost",
+			"disabled": true
 		},
 		{
 			"key": "port",
-			"value": "5556"
+			"value": "5556",
+			"disabled": true
 		},
 		{
 			"key": "apiName",
@@ -26813,6 +27022,18 @@
 		{
 			"key": "apiVersion",
 			"value": "1.0"
+		},
+		{
+			"key": "buildId",
+			"value": "123"
+		},
+		{
+			"key": "buildNumber",
+			"value": "456"
+		},
+		{
+			"key": "definitionName",
+			"value": "manual"
 		}
 	]
 }
